@@ -6,6 +6,7 @@ namespace LudumDare57.Resources
 {
     public class GasHandler : MonoBehaviour
     {
+        public float StartTankSize => startTankSize;
         public float MaxTankSize => maxTankSize;
         public UnityEvent TankSizeChanged => tankSizeChanged;
         public UnityEvent GasChanged => gasChanged;
