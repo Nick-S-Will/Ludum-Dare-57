@@ -24,7 +24,7 @@ namespace LudumDare57.Movement
 
         public void Move(Vector2 moveInput)
         {
-            if (!gasHandler.UseGas(gasUsage * Time.fixedDeltaTime)) return;
+            if (moveInput == Vector2.zero || !gasHandler.UseGas(gasUsage * Time.fixedDeltaTime)) return;
 
             float forwardInput = moveInput.y > inputDeadZone ? 1f : 0f;
             Vector3 globalForwardForce = forwardInput * forwardForce * transform.forward;
