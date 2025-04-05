@@ -609,6 +609,7 @@ GameObject:
   - component: {fileID: 1660387171}
   - component: {fileID: 1660387173}
   - component: {fileID: 1660387172}
+  - component: {fileID: 1660387175}
   - component: {fileID: 1660387174}
   - component: {fileID: 1660387170}
   - component: {fileID: 1660387169}
@@ -697,6 +698,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forwardForce: 1000
   turnTorque: 45
+  gasUsage: 1
   inputDeadZone: 0.01
 --- !u!114 &1660387173
 MonoBehaviour:
@@ -764,6 +766,19 @@ MonoBehaviour:
   m_DefaultActionMap: Boat
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1660387175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1660387168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9de3a66b2a71b624eb84fbd71d43f1ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxGas: 10
 --- !u!1 &1793400314
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,25 +1,31 @@
+using LudumDare57.Resources;
 using UnityEngine;
 
 namespace LudumDare57.Movement
 {
+    [RequireComponent(typeof(GasHandler))]
     [RequireComponent(typeof(Rigidbody))]
     public class BoatController : MonoBehaviour
     {
         [Header("Attributes")]
         [SerializeField][Min(1e-5f)] private float forwardForce = 1000f;
-        [SerializeField][Min(1e-5f)] private float turnTorque = 45f;
+        [SerializeField][Min(1e-5f)] private float turnTorque = 45f, gasUsage = 1f;
         [Header("Checks")]
         [SerializeField][Min(1e-5f)] private float inputDeadZone = .01f;
 
+        private GasHandler gasHandler;
         private new Rigidbody rigidbody;
 
         private void Awake()
         {
+            gasHandler = GetComponent<GasHandler>();
             rigidbody = GetComponent<Rigidbody>();
         }
 
         public void Move(Vector2 moveInput)
         {
+            if (!gasHandler.UseGas(gasUsage * Time.fixedDeltaTime)) return;
+
             float forwardInput = moveInput.y > inputDeadZone ? 1f : 0f;
             Vector3 globalForwardForce = forwardInput * forwardForce * transform.forward;
             rigidbody.AddForce(globalForwardForce);
