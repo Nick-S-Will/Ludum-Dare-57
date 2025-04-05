@@ -11,7 +11,7 @@ namespace LudumDare57.Resources.UI
         {
             get
             {
-                rectTransform = rectTransform != null ? rectTransform : GetComponent<RectTransform>();
+                if (rectTransform == null) rectTransform = GetComponent<RectTransform>();
                 return rectTransform;
             }
         }
