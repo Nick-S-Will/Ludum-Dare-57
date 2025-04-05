@@ -70,3 +70,6 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Project version since Nicholas is using 2022.3.44f1 and Ayman is using 2022.3.41f1
+ProjectSettings/ProjectVersion.txt
