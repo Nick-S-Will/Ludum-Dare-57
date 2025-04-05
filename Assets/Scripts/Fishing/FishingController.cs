@@ -5,9 +5,13 @@ namespace LudumDare57.Fishing
 {
     public class FishingController : MonoBehaviour
     {
+        public List<Fish> CaughtFish => caughtFish;
+
         [Header("Checks")]
         [SerializeField][Min(0f)] private float range = 1f;
         [SerializeField] private LayerMask fishingMask = 1;
+
+        private List<Fish> caughtFish = new();
 
         private void OnDrawGizmos()
         {
@@ -17,18 +21,16 @@ namespace LudumDare57.Fishing
         public void Fish()
         {
             Collider[] colliders = Physics.OverlapSphere(transform.position, range, fishingMask, QueryTriggerInteraction.Collide);
-            List<Fish> fishes = new();
             foreach (Collider collider in colliders)
             {
-                FishPool fishPool = collider.GetComponent<FishPool>();
-                if (fishPool == null) continue;
+                if (!collider.TryGetComponent<FishPool>(out var fishPool)) continue;
 
-                fishes.AddRange(fishPool.Fishes);
+                caughtFish.AddRange(fishPool.Fishes);
             }
 
-            if (fishes.Count > 0)
+            if (caughtFish.Count > 0)
             {
-                foreach (Fish fish in fishes) Debug.Log(fish); // TODO: Replace this fish pool testing with the fishing minigame
+                foreach (Fish fish in caughtFish) Debug.Log(fish); // TODO: Replace this fish pool testing with the fishing minigame
             }
             else Debug.Log("No fish");
         }
