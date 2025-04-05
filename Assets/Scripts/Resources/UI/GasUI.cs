@@ -26,10 +26,15 @@ namespace LudumDare57.Resources.UI
 
         private void UpdateUI()
         {
+            Vector3 localPosition = backImage.rectTransform.localPosition;
+
             float tankHeight = gasHandler.TankSize / gasHandler.MaxTankSize * rectTransform.rect.height;
+            localPosition.y = -tankHeight;
+            backImage.rectTransform.localPosition = localPosition;
             backImage.rectTransform.sizeDelta = new Vector2(backImage.rectTransform.sizeDelta.x, tankHeight);
 
             float gasHeight = gasHandler.Gas / gasHandler.TankSize * tankHeight;
+            fillImage.rectTransform.localPosition = localPosition;
             fillImage.rectTransform.sizeDelta = new Vector2(backImage.rectTransform.sizeDelta.x, gasHeight);
         }
     }
