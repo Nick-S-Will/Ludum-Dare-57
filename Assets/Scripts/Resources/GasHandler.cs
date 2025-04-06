@@ -4,7 +4,7 @@ using UnityEngine.Events;
 
 namespace LudumDare57.Resources
 {
-    public class GasHandler : MonoBehaviour
+    public class GasHandler : MonoBehaviour, IGasHolder
     {
         public float StartTankSize => startTankSize;
         public float MaxTankSize => maxTankSize;
@@ -55,7 +55,7 @@ namespace LudumDare57.Resources
 
         public bool UseGas(float amount)
         {
-            if (!HasGas(amount)) return false;
+            if (amount == 0 || !HasGas(amount)) return false;
 
             gas -= amount;
             gasChanged.Invoke();

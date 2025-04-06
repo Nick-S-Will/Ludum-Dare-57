@@ -22,8 +22,11 @@ namespace LudumDare57.Shopping.UI
 
             moneyHandler.MoneyChanged.AddListener(UpdateUI);
             textFormat = moneyText.text;
+        }
 
-            UpdateMoneyText();
+        private void Start()
+        {
+            UpdateText();
         }
 
         private void UpdateUI()
@@ -46,7 +49,7 @@ namespace LudumDare57.Shopping.UI
             while (displayMoney != targetMoney)
             {
                 displayMoney += changeDirection;
-                moneyText.text = string.Format(textFormat, displayMoney);
+                UpdateText();
 
                 yield return new WaitForSeconds(changeInterval);
             }
@@ -54,6 +57,6 @@ namespace LudumDare57.Shopping.UI
             changeMoneyRoutine = null;
         }
 
-        private void UpdateMoneyText() => moneyText.text = string.Format(textFormat, displayMoney);
+        private void UpdateText() => moneyText.text = string.Format(textFormat, displayMoney);
     }
 }
