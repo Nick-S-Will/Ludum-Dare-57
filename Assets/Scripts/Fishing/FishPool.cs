@@ -27,6 +27,7 @@ namespace LudumDare57.Fishing
 
         private void OnDrawGizmos()
         {
+            Gizmos.color = Color.blue;
             if (Collider is BoxCollider boxCollider)
             {
                 Gizmos.DrawWireCube(transform.position + boxCollider.center, boxCollider.size);
