@@ -7,6 +7,9 @@ namespace LudumDare57.Movement
     [RequireComponent(typeof(Rigidbody))]
     public class BoatController : MonoBehaviour
     {
+        public GasHandler GasHandler => gasHandler;
+        public Rigidbody Rigidbody => rigidbody;
+
         [Header("Attributes")]
         [SerializeField][Min(1e-5f)] private float forwardForce = 1000f;
         [SerializeField][Min(1e-5f)] private float turnTorque = 45f, gasUsage = 1f;

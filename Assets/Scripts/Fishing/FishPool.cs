@@ -1,4 +1,6 @@
+using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 namespace LudumDare57.Fishing
 {
@@ -7,34 +9,39 @@ namespace LudumDare57.Fishing
     {
         public Fish[] Fishes => fishes;
 
-        private Collider Collider
+        private Collider[] Colliders
         {
             get
             {
-                if (!Application.isPlaying || collider == null) collider = GetComponent<Collider>();
-                return collider;
+                if (!Application.isPlaying || colliders == null) colliders = GetComponents<Collider>();
+                return colliders;
             }
         }
 
         [SerializeField] private Fish[] fishes;
 
-        private new Collider collider;
+        private Collider[] colliders;
 
         private void Awake()
         {
-            collider = null;
-            Collider.isTrigger = true;
+            Assert.IsTrue(fishes.All(fish => fish.IsValid()));
+
+            foreach(Collider collider in Colliders) collider.isTrigger = true;
         }
 
         private void OnDrawGizmos()
         {
-            if (Collider is BoxCollider boxCollider)
+            Gizmos.color = Color.blue;
+            foreach (Collider collider in Colliders)
             {
-                Gizmos.DrawWireCube(transform.position + boxCollider.center, boxCollider.size);
-            }
-            else if (Collider is SphereCollider sphereCollider)
-            {
-                Gizmos.DrawWireSphere(transform.position + sphereCollider.center, sphereCollider.radius);
+                if (collider is BoxCollider boxCollider)
+                {
+                    Gizmos.DrawWireCube(transform.position + boxCollider.center, boxCollider.size);
+                }
+                else if (collider is SphereCollider sphereCollider)
+                {
+                    Gizmos.DrawWireSphere(transform.position + sphereCollider.center, sphereCollider.radius);
+                }
             }
         }
     }

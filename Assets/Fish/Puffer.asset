@@ -10,8 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
-  m_Name: Test Fish 1
+  m_Name: Puffer
   m_EditorClassIdentifier: 
   description: Yohohoho.
   price: 10
-  sprite: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  catchTime: 1.5
+  sprite: {fileID: 21300000, guid: 9a5de172a52154c4688602c8cf8127fc, type: 3}
+  silhouetteSprite: {fileID: 21300000, guid: b798a30adb4944c49baeccef062e8bd3, type: 3}

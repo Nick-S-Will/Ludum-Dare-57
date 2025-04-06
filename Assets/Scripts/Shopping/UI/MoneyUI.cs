@@ -33,10 +33,10 @@ namespace LudumDare57.Shopping.UI
         {
             if (changeMoneyRoutine != null) StopCoroutine(changeMoneyRoutine);
 
-            changeMoneyRoutine = StartCoroutine(ChangeMoney(moneyHandler.Money));
+            changeMoneyRoutine = StartCoroutine(ChangeMoneyRoutine(moneyHandler.Money));
         }
 
-        private IEnumerator ChangeMoney(int targetMoney)
+        private IEnumerator ChangeMoneyRoutine(int targetMoney)
         {
             if (displayMoney == targetMoney)
             {
@@ -44,7 +44,7 @@ namespace LudumDare57.Shopping.UI
                 yield break;
             }
 
-            float changeInterval = changeMoneyTime / Mathf.Abs(targetMoney - displayMoney);
+            float changeInterval = Mathf.Max(changeMoneyTime / Mathf.Abs(targetMoney - displayMoney), 1e-5f);
             int changeDirection = (int)Mathf.Sign(targetMoney - displayMoney);
             while (displayMoney != targetMoney)
             {

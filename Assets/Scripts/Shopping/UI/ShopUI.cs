@@ -1,4 +1,7 @@
 using TMPro;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -17,37 +20,64 @@ namespace LudumDare57.Shopping.UI
         }
 
         [SerializeField] private Shop shop;
-        [SerializeField] private TMP_Text debtText;
+        [SerializeField] private TMP_Text debtText, gasText, tankUpgradeText, debtPaymentText;
 
         private Graphic[] graphics;
-        private string debtTextFormat;
+        private string debtTextFormat, gasTextFormat, tankUpgradeTextFormat, debtPaymentTextFormat;
 
         private void Awake()
         {
             Assert.IsNotNull(shop);
             Assert.IsNotNull(debtText);
+            Assert.IsNotNull(gasText);
+            Assert.IsNotNull(tankUpgradeText);
+            Assert.IsNotNull(debtPaymentText);
 
-            graphics = null;
-            shop.Opened.AddListener(Open);
-            shop.Closed.AddListener(Close);
-            shop.DebtPartlyPaid.AddListener(UpdateDebtText);
+            shop.Opened.AddListener(Show);
+            shop.Closed.AddListener(Hide);
+            shop.DebtChanged.AddListener(UpdateDebtText);
             debtTextFormat = debtText.text;
+            gasTextFormat = gasText.text;
+            tankUpgradeTextFormat = tankUpgradeText.text;
+            debtPaymentTextFormat = debtPaymentText.text;
         }
 
         private void Start()
         {
-            UpdateDebtText();
+            UpdateTexts();
         }
 
-        [ContextMenu(nameof(Open))]
-        private void Open() => SetVisible(true);
+        #region Visibility
+        [ContextMenu(nameof(Show))]
+        private void Show()
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) Undo.RecordObjects(Graphics, $"{nameof(Show)} graphics");
+#endif
+            SetVisible(true);
+        }
 
-        [ContextMenu(nameof(Close))]
-        private void Close() => SetVisible(false);
+        [ContextMenu(nameof(Hide))]
+        private void Hide()
+        {
+#if UNITY_EDITOR
+            if (!Application.isPlaying) Undo.RecordObjects(Graphics, $"{nameof(Hide)} graphics");
+#endif
+            SetVisible(false);
+        }
 
         private void SetVisible(bool visible)
         {
             foreach (Graphic graphic in Graphics) graphic.enabled = visible;
+        }
+        #endregion
+
+        private void UpdateTexts()
+        {
+            UpdateDebtText();
+            gasText.text = string.Format(gasTextFormat, shop.GasPrice);
+            tankUpgradeText.text = string.Format(tankUpgradeTextFormat, shop.TankUpgradePrice);
+            debtPaymentText.text = string.Format(debtPaymentTextFormat, shop.DebtPaymentAmount);
         }
 
         private void UpdateDebtText() => debtText.text = string.Format(debtTextFormat, shop.Debt);
