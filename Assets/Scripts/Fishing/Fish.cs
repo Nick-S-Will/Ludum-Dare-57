@@ -16,6 +16,8 @@ namespace LudumDare57.Fishing
         [SerializeField][Min(1e-5f)] private float catchTime = 1f;
         [SerializeField] private Sprite sprite, silhouetteSprite;
 
+        public bool IsValid() => description != null && price > 0 && catchTime > 0f && sprite != null && silhouetteSprite != null;
+
         public override string ToString()
         {
             return $"A fish named {name}. {description} It sells for ${Price}";

@@ -177,7 +177,7 @@ namespace LudumDare57.Fishing.UI
         private void SetFish(Fish fishAsset, Vector3 position)
         {
             fish.rectTransform.position = position;
-            fish.sprite = fishAsset ? fishAsset.Sprite : null;
+            fish.sprite = fishAsset ? fishAsset.SilhouetteSprite : null;
             fish.enabled = fishAsset;
         }
         #endregion
