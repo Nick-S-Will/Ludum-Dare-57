@@ -112,6 +112,12 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Fishing",
+            "id": "a6579636-a8c8-473d-a077-58b1a266a96d",
+            "actions": [],
+            "bindings": []
         }
     ],
     "controlSchemes": [

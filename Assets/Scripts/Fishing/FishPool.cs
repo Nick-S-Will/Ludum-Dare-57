@@ -22,7 +22,6 @@ namespace LudumDare57.Fishing
 
         private void Awake()
         {
-            collider = null;
             Collider.isTrigger = true;
         }
 

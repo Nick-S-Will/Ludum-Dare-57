@@ -134,6 +134,12 @@ public partial class @Player: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Fishing"",
+            ""id"": ""a6579636-a8c8-473d-a077-58b1a266a96d"",
+            ""actions"": [],
+            ""bindings"": []
         }
     ],
     ""controlSchemes"": [
@@ -160,6 +166,8 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_Boat_Move = m_Boat.FindAction("Move", throwIfNotFound: true);
         m_Boat_ToggleFishpedia = m_Boat.FindAction("Toggle Fishpedia", throwIfNotFound: true);
         m_Boat_Fish = m_Boat.FindAction("Fish", throwIfNotFound: true);
+        // Fishing
+        m_Fishing = asset.FindActionMap("Fishing", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -279,6 +287,44 @@ public partial class @Player: IInputActionCollection2, IDisposable
         }
     }
     public BoatActions @Boat => new BoatActions(this);
+
+    // Fishing
+    private readonly InputActionMap m_Fishing;
+    private List<IFishingActions> m_FishingActionsCallbackInterfaces = new List<IFishingActions>();
+    public struct FishingActions
+    {
+        private @Player m_Wrapper;
+        public FishingActions(@Player wrapper) { m_Wrapper = wrapper; }
+        public InputActionMap Get() { return m_Wrapper.m_Fishing; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(FishingActions set) { return set.Get(); }
+        public void AddCallbacks(IFishingActions instance)
+        {
+            if (instance == null || m_Wrapper.m_FishingActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_FishingActionsCallbackInterfaces.Add(instance);
+        }
+
+        private void UnregisterCallbacks(IFishingActions instance)
+        {
+        }
+
+        public void RemoveCallbacks(IFishingActions instance)
+        {
+            if (m_Wrapper.m_FishingActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IFishingActions instance)
+        {
+            foreach (var item in m_Wrapper.m_FishingActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_FishingActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public FishingActions @Fishing => new FishingActions(this);
     private int m_MouseKeyboardSchemeIndex = -1;
     public InputControlScheme MouseKeyboardScheme
     {
@@ -293,5 +339,8 @@ public partial class @Player: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnToggleFishpedia(InputAction.CallbackContext context);
         void OnFish(InputAction.CallbackContext context);
+    }
+    public interface IFishingActions
+    {
     }
 }
