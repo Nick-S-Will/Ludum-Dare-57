@@ -31,12 +31,17 @@ namespace LudumDare57.Cutscenes
 
         private void Respawn()
         {
+            MovePlayerToStart();
+
+            playerRespawned.Invoke();
+        }
+
+        public void MovePlayerToStart()
+        {
             playerController.BoatController.Rigidbody.velocity = Vector3.zero;
             playerController.BoatController.Rigidbody.angularVelocity = Vector3.zero;
             playerController.BoatController.Rigidbody.position = playerStartPosition;
             playerController.BoatController.Rigidbody.rotation = playerStartRotation;
-
-            playerRespawned.Invoke();
         }
     }
 }
