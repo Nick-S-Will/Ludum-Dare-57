@@ -6,6 +6,9 @@ namespace LudumDare57.Shopping
 {
     public class Shop : MonoBehaviour
     {
+        public int GasPrice => gasPrice;
+        public int TankUpgradePrice => tankUpgradePrice;
+        public int DebtPaymentAmount => debtPaymentAmount;
         public UnityEvent Opened => opened;
         public UnityEvent Closed => closed;
         public UnityEvent PurchaseFailed => purchaseFailed;

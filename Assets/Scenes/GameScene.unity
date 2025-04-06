@@ -526,7 +526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy
+  m_text: Buy ({0}$)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 003ebff6374f82947a20cd8a62e8540c, type: 2}
   m_sharedMaterial: {fileID: -3886663439683914660, guid: 003ebff6374f82947a20cd8a62e8540c, type: 2}
@@ -660,7 +660,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Buy
+  m_text: Buy ({0}$)
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 003ebff6374f82947a20cd8a62e8540c, type: 2}
   m_sharedMaterial: {fileID: -3886663439683914660, guid: 003ebff6374f82947a20cd8a62e8540c, type: 2}
@@ -2203,6 +2203,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shop: {fileID: 222529109}
   debtText: {fileID: 1044334959}
+  gasText: {fileID: 323512442}
+  tankUpgradeText: {fileID: 365421178}
+  debtPaymentText: {fileID: 1422745569}
 --- !u!1 &1371282399
 GameObject:
   m_ObjectHideFlags: 0
@@ -2515,7 +2518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pay
+  m_text: Pay {0}$
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 003ebff6374f82947a20cd8a62e8540c, type: 2}
   m_sharedMaterial: {fileID: -3886663439683914660, guid: 003ebff6374f82947a20cd8a62e8540c, type: 2}
