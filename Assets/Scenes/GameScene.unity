@@ -1158,6 +1158,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 485383222}
+  - component: {fileID: 485383226}
   - component: {fileID: 485383225}
   - component: {fileID: 485383224}
   m_Layer: 0
@@ -1232,6 +1233,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485383221}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &485383226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485383221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1e3ecb96ba53b6488a3cbe2fa1f2fd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sprites:
+  - {fileID: 21300000, guid: ecdb52b077d4af14db9ec93dd9e8b03d, type: 3}
+  - {fileID: 21300000, guid: ba60c1fa60af5fc40a88d4b314a38679, type: 3}
+  panSpeed: {x: 1, y: 1}
+  frameInterval: 1
+  panInterval: 0.2
 --- !u!1 &496639225
 GameObject:
   m_ObjectHideFlags: 0
