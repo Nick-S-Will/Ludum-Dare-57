@@ -29,7 +29,9 @@ namespace LudumDare57.Fishing.UI
         [Header("Attributes")]
         [SerializeField][Min(1f)] private int minSpawnCount = 2;
         [SerializeField][Min(1f)] private int maxSpawnCount = 4;
-        [SerializeField][Min(0f)] private float localHookDropSpeed = 300f, localReelSpeed = 600f, minSpawnInterval = 3f, maxSpawnInterval = 7f, minSpawnRange = 100f, maxSpawnRange = 300f, positionTolerance = .1f;
+        [SerializeField][Min(0f)] private float localHookDropSpeed = 300f, localReelSpeed = 600f, minSpawnInterval = 3f, maxSpawnInterval = 7f, minSpawnRange = 100f, maxSpawnRange = 300f;
+        [Header("Checks")]
+        [SerializeField][Min(0f)] private float positionTolerance = .1f;
 
         private RectTransform rectTransform;
         private Coroutine moveHookRoutine, spawnFishRoutine;
