@@ -33,7 +33,7 @@ namespace LudumDare57.Shopping.UI
 
             shop.Opened.AddListener(Show);
             shop.Closed.AddListener(Hide);
-            shop.DebtPartlyPaid.AddListener(UpdateTexts);
+            shop.DebtPartlyPaid.AddListener(UpdateDebtText);
             debtTextFormat = debtText.text;
             gasTextFormat = gasText.text;
             tankUpgradeTextFormat = tankUpgradeText.text;
@@ -66,17 +66,18 @@ namespace LudumDare57.Shopping.UI
 
         private void SetVisible(bool visible)
         {
-            if (visible) UpdateTexts();
             foreach (Graphic graphic in Graphics) graphic.enabled = visible;
-        } 
+        }
         #endregion
 
         private void UpdateTexts()
         {
-            debtText.text = string.Format(debtTextFormat, shop.Debt);
+            UpdateDebtText();
             gasText.text = string.Format(gasTextFormat, shop.GasPrice);
             tankUpgradeText.text = string.Format(tankUpgradeTextFormat, shop.TankUpgradePrice);
             debtPaymentText.text = string.Format(debtPaymentTextFormat, shop.DebtPaymentAmount);
         }
+
+        private void UpdateDebtText() => debtText.text = string.Format(debtTextFormat, shop.Debt);
     }
 }
