@@ -18,25 +18,31 @@ namespace LudumDare57.Shopping.UI
         }
 
         [SerializeField] private Shop shop;
-        [SerializeField] private TMP_Text debtText;
+        [SerializeField] private TMP_Text debtText, gasText, tankUpgradeText, debtPaymentText;
 
         private Graphic[] graphics;
-        private string debtTextFormat;
+        private string debtTextFormat, gasTextFormat, tankUpgradeTextFormat, debtPaymentTextFormat;
 
         private void Awake()
         {
             Assert.IsNotNull(shop);
             Assert.IsNotNull(debtText);
+            Assert.IsNotNull(gasText);
+            Assert.IsNotNull(tankUpgradeText);
+            Assert.IsNotNull(debtPaymentText);
 
             shop.Opened.AddListener(Show);
             shop.Closed.AddListener(Hide);
-            shop.DebtPartlyPaid.AddListener(UpdateDebtText);
+            shop.DebtPartlyPaid.AddListener(UpdateTexts);
             debtTextFormat = debtText.text;
+            gasTextFormat = gasText.text;
+            tankUpgradeTextFormat = tankUpgradeText.text;
+            debtPaymentTextFormat = debtPaymentText.text;
         }
 
         private void Start()
         {
-            UpdateDebtText();
+            UpdateTexts();
         }
 
         #region Visibility
@@ -60,10 +66,17 @@ namespace LudumDare57.Shopping.UI
 
         private void SetVisible(bool visible)
         {
+            if (visible) UpdateTexts();
             foreach (Graphic graphic in Graphics) graphic.enabled = visible;
         } 
         #endregion
 
-        private void UpdateDebtText() => debtText.text = string.Format(debtTextFormat, shop.Debt);
+        private void UpdateTexts()
+        {
+            debtText.text = string.Format(debtTextFormat, shop.Debt);
+            gasText.text = string.Format(gasTextFormat, shop.GasPrice);
+            tankUpgradeText.text = string.Format(tankUpgradeTextFormat, shop.TankUpgradePrice);
+            debtPaymentText.text = string.Format(debtPaymentTextFormat, shop.DebtPaymentAmount);
+        }
     }
 }
