@@ -1,4 +1,5 @@
 using LudumDare57.Extensions;
+using LudumDare57.Fishing.Stats;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -68,7 +69,7 @@ namespace LudumDare57.Fishing.UI
             SpawnFish(fishOptions);
         }
 
-        private void EndMinigame()
+        private void EndMinigame(IList<Fish> caughtFish)
         {
             MoveHookToStart();
             Hide();
@@ -151,7 +152,7 @@ namespace LudumDare57.Fishing.UI
         private void SetFish(Fish fishAsset, Vector3 position)
         {
             fish.rectTransform.position = position;
-            fish.sprite = fishAsset ? fishAsset.SilhouetteSprite : null;
+            fish.sprite = fishAsset ? (CatchStatTracker.Instance.HasBeenCaught(fishAsset) ? fishAsset.Sprite : fishAsset.SilhouetteSprite) : null;
             fish.enabled = fishAsset;
         }
         #endregion

@@ -8,7 +8,7 @@ namespace LudumDare57.Fishing
     public class FishingController : MonoBehaviour
     {
         public UnityEvent<IList<Fish>> FishingStarted => fishingStarted;
-        public UnityEvent FishingEnded => fishingEnded;
+        public UnityEvent<IList<Fish>> FishingEnded => fishingEnded;
         public List<Fish> CaughtFish => caughtFish;
         public bool IsFishing { get; private set; }
 
@@ -17,7 +17,7 @@ namespace LudumDare57.Fishing
         [SerializeField] private LayerMask fishingMask = 1;
         [Header("Events")]
         [SerializeField] private UnityEvent<IList<Fish>> fishingStarted;
-        [SerializeField] private UnityEvent fishingEnded;
+        [SerializeField] private UnityEvent<IList<Fish>> fishingEnded;
 
         private readonly List<Fish> caughtFish = new();
 
@@ -52,7 +52,7 @@ namespace LudumDare57.Fishing
 
             IsFishing = false;
 
-            fishingEnded.Invoke();
+            fishingEnded.Invoke(caughtFish);
         }
     }
 }
