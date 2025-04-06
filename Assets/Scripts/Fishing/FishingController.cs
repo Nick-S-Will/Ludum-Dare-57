@@ -10,6 +10,7 @@ namespace LudumDare57.Fishing
         public UnityEvent<IList<Fish>> FishingStarted => fishingStarted;
         public UnityEvent FishingEnded => fishingEnded;
         public List<Fish> CaughtFish => caughtFish;
+        public bool IsFishing { get; private set; }
 
         [Header("Checks")]
         [SerializeField][Min(0f)] private float range = 1f;
@@ -38,6 +39,8 @@ namespace LudumDare57.Fishing
 
             Assert.IsTrue(fishOptions.Count > 0);
 
+            IsFishing = true;
+
             fishingStarted.Invoke(fishOptions);
         }
 
@@ -46,6 +49,8 @@ namespace LudumDare57.Fishing
             this.caughtFish.AddRange(caughtFish);
 
             foreach (Fish fish in caughtFish) Debug.Log(fish);
+
+            IsFishing = false;
 
             fishingEnded.Invoke();
         }

@@ -29,6 +29,8 @@ namespace LudumDare57.Player
 
         private void FixedUpdate()
         {
+            if (fishingController.IsFishing) return;
+
             boatController.Move(moveInput);
         }
 
@@ -39,15 +41,16 @@ namespace LudumDare57.Player
 
         public void ToggleFishpedia(InputAction.CallbackContext context)
         {
-            if (!context.performed) return;
+            if (!context.performed || fishingController.IsFishing) return;
 
             fishpediaController.ToggleOpen();
         }
 
         public void Fish(InputAction.CallbackContext context)
         {
-            if (!context.performed) return;
+            if (!context.performed || fishpediaController.IsOpen) return;
 
+            boatController.Stop();
             fishingController.Fish();
         }
     }

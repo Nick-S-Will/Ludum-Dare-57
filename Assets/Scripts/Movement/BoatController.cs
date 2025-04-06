@@ -37,5 +37,11 @@ namespace LudumDare57.Movement
             Vector3 globalTurnTorque = turnInput * turnTorque * transform.up;
             rigidbody.AddTorque(globalTurnTorque);
         }
+
+        public void Stop()
+        {
+            Rigidbody.velocity = Vector3.zero;
+            Rigidbody.angularVelocity = Vector3.zero;
+        }
     }
 }

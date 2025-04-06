@@ -561,6 +561,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1660387179}
+        m_TargetAssemblyTypeName: LudumDare57.Fishpedia.FishpediaController, Assembly-CSharp
+        m_MethodName: Close
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   closed:
     m_PersistentCalls:
       m_Calls:
@@ -859,12 +871,13 @@ MonoBehaviour:
   caughtFishParent: {fileID: 1785059315}
   minSpawnCount: 2
   maxSpawnCount: 4
-  hookDropSpeed: 300
-  reelSpeed: 600
-  minSpawnInterval: 3
-  maxSpawnInterval: 7
+  localHookDropSpeed: 300
+  localReelSpeed: 600
+  minSpawnInterval: 2
+  maxSpawnInterval: 4
   minSpawnRange: 100
   maxSpawnRange: 300
+  positionTolerance: 0.1
 --- !u!1 &365421176
 GameObject:
   m_ObjectHideFlags: 0
@@ -3958,7 +3971,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1660387179}
         m_TargetAssemblyTypeName: LudumDare57.Fishpedia.FishpediaController, Assembly-CSharp
-        m_MethodName: ToggleOpen
+        m_MethodName: Close
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -10,6 +10,8 @@ namespace LudumDare57.Fishing.UI
     public class FishingMinigame : MonoBehaviour
     {
         private int RandomSpawnCount => Random.Range(minSpawnCount, maxSpawnCount + 1);
+        private float HookDropSpeed => RectTransform.TransformVector(localHookDropSpeed * Vector3.right).x;
+        private float ReelSpeed => RectTransform.TransformVector(localReelSpeed * Vector3.right).x;
         private float RandomSpawnInterval => Random.Range(minSpawnInterval, maxSpawnInterval);
         private Vector3 RandomSpawnPosition => RectTransform.position + RectTransform.TransformVector(Random.Range(minSpawnRange, maxSpawnRange) * Random.insideUnitCircle.normalized); // 
         private RectTransform RectTransform
@@ -27,7 +29,7 @@ namespace LudumDare57.Fishing.UI
         [Header("Attributes")]
         [SerializeField][Min(1f)] private int minSpawnCount = 2;
         [SerializeField][Min(1f)] private int maxSpawnCount = 4;
-        [SerializeField][Min(0f)] private float hookDropSpeed = 300f, reelSpeed = 600f, minSpawnInterval = 3f, maxSpawnInterval = 7f, minSpawnRange = 100f, maxSpawnRange = 300f;
+        [SerializeField][Min(0f)] private float localHookDropSpeed = 300f, localReelSpeed = 600f, minSpawnInterval = 3f, maxSpawnInterval = 7f, minSpawnRange = 100f, maxSpawnRange = 300f, positionTolerance = .1f;
 
         private RectTransform rectTransform;
         private Coroutine moveHookRoutine, spawnFishRoutine;
@@ -92,7 +94,7 @@ namespace LudumDare57.Fishing.UI
 
         private IEnumerator MoveHookRoutine(Vector3 targetPosition, float moveSpeed)
         {
-            while (hook.rectTransform.position != targetPosition)
+            while (Vector3.Distance(hook.rectTransform.position, targetPosition) > positionTolerance)
             {
                 hook.rectTransform.position = Vector3.MoveTowards(hook.rectTransform.position, targetPosition, moveSpeed * Time.deltaTime);
 
@@ -116,7 +118,7 @@ namespace LudumDare57.Fishing.UI
             int spawnCount = RandomSpawnCount;
             for (int i = 0; i < spawnCount; i++)
             {
-                MoveHookToCenter(hookDropSpeed);
+                MoveHookToCenter(HookDropSpeed);
                 yield return moveHookRoutine;
 
                 yield return new WaitForSeconds(RandomSpawnInterval);
@@ -157,12 +159,12 @@ namespace LudumDare57.Fishing.UI
 
         private IEnumerator CatchRoutine(Fish fishAsset)
         {
-            MoveHook(fish.rectTransform.position, reelSpeed);
+            MoveHook(fish.rectTransform.position, ReelSpeed);
             yield return moveHookRoutine;
 
             fish.rectTransform.SetParent(hook.rectTransform, true);
 
-            MoveHookToStart(reelSpeed);
+            MoveHookToStart(ReelSpeed);
             yield return moveHookRoutine;
 
             fish.rectTransform.SetParent(RectTransform);
