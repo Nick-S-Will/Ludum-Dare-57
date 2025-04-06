@@ -25,7 +25,7 @@ namespace LudumDare57.Resources
 
         private void Start()
         {
-            Assert.IsTrue(IncreaseTankSize());
+            _ = IncreaseTankSize();
             Refuel();
         }
 
