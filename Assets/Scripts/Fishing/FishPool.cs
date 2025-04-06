@@ -11,7 +11,7 @@ namespace LudumDare57.Fishing
         {
             get
             {
-                if (collider == null) collider = GetComponent<Collider>();
+                if (!Application.isPlaying || collider == null) collider = GetComponent<Collider>();
                 return collider;
             }
         }
@@ -22,6 +22,7 @@ namespace LudumDare57.Fishing
 
         private void Awake()
         {
+            collider = null;
             Collider.isTrigger = true;
         }
 
