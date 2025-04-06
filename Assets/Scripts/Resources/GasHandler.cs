@@ -10,6 +10,7 @@ namespace LudumDare57.Resources
         public float MaxTankSize => maxTankSize;
         public UnityEvent TankSizeChanged => tankSizeChanged;
         public UnityEvent GasChanged => gasChanged;
+        public UnityEvent GasExhausted => gasExhausted;
         public float TankSize => tankSize;
         public float Gas => gas;
 
@@ -18,7 +19,7 @@ namespace LudumDare57.Resources
         [SerializeField][Min(1e-5f)] private float maxTankSize = 100f;
         [Header("Events")]
         [SerializeField] private UnityEvent tankSizeChanged;
-        [SerializeField] private UnityEvent gasChanged;
+        [SerializeField] private UnityEvent gasChanged, gasExhausted;
 
         private float tankSize, gas;
 
@@ -55,10 +56,14 @@ namespace LudumDare57.Resources
 
         public bool UseGas(float amount)
         {
-            if (amount == 0 || !HasGas(amount)) return false;
+            if (amount <= 0f) return false;
 
-            gas -= amount;
+            float toUse = Mathf.Min(amount, gas);
+            if (!HasGas(toUse)) return false;
+
+            gas -= toUse;
             gasChanged.Invoke();
+            if (gas == 0f) gasExhausted.Invoke();
 
             return true;
         }

@@ -9,6 +9,9 @@ namespace LudumDare57.Player
     [RequireComponent(typeof(FishingController))]
     public class PlayerController : MonoBehaviour
     {
+        public BoatController BoatController => boatController;
+        public FishingController FishingController => fishingController;
+
         private BoatController boatController;
         private FishingController fishingController;
         private Vector2 moveInput;

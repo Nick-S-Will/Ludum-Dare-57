@@ -12,6 +12,9 @@ namespace LudumDare57.Shopping
 
         private int money;
 
+        [ContextMenu(nameof(LineMyPockets))]
+        private void LineMyPockets() => AddMoney(int.MaxValue - money);
+        
         public void AddMoney(int amount)
         {
             if (amount <= 0) return;

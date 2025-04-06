@@ -44,7 +44,7 @@ namespace LudumDare57.Shopping.UI
                 yield break;
             }
 
-            float changeInterval = changeMoneyTime / Mathf.Abs(targetMoney - displayMoney);
+            float changeInterval = Mathf.Max(changeMoneyTime / Mathf.Abs(targetMoney - displayMoney), 1e-5f);
             int changeDirection = (int)Mathf.Sign(targetMoney - displayMoney);
             while (displayMoney != targetMoney)
             {

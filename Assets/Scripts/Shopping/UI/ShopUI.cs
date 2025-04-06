@@ -35,7 +35,7 @@ namespace LudumDare57.Shopping.UI
 
             shop.Opened.AddListener(Show);
             shop.Closed.AddListener(Hide);
-            shop.DebtPartlyPaid.AddListener(UpdateDebtText);
+            shop.DebtChanged.AddListener(UpdateDebtText);
             debtTextFormat = debtText.text;
             gasTextFormat = gasText.text;
             tankUpgradeTextFormat = tankUpgradeText.text;

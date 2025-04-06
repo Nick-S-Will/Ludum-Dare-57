@@ -1,5 +1,6 @@
 using LudumDare57.Resources;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 namespace LudumDare57.Shopping
@@ -14,7 +15,7 @@ namespace LudumDare57.Shopping
         public UnityEvent PurchaseFailed => purchaseFailed;
         public UnityEvent GasBought => gasBought;
         public UnityEvent TankUpgraded => tankUpgraded;
-        public UnityEvent DebtPartlyPaid => debtPartlyPaid;
+        public UnityEvent DebtChanged => debtChanged;
         public UnityEvent DebtPaid => debtPaid;
         public IMoneyHolder Shopper => shopper;
         public int Debt => debt;
@@ -27,7 +28,7 @@ namespace LudumDare57.Shopping
         [SerializeField][Min(1f)] private int gasPrice = 10, tankUpgradePrice = 20, debtPaymentAmount = 100;
         [Header("Events")]
         [SerializeField] private UnityEvent opened;
-        [SerializeField] private UnityEvent closed, purchaseFailed, gasBought, tankUpgraded, debtPartlyPaid, debtPaid;
+        [SerializeField] private UnityEvent closed, purchaseFailed, gasBought, tankUpgraded, debtChanged, debtPaid;
 
         private IMoneyHolder shopper;
         private int debt;
@@ -81,6 +82,14 @@ namespace LudumDare57.Shopping
             tankUpgraded.Invoke();
         }
 
+        public void IncreaseDebt(int amount)
+        {
+            Assert.IsTrue(amount > 0);
+
+            debt += amount;
+            debtChanged.Invoke();
+        }
+
         public void PayDebt()
         {
             if (!IsOpen)
@@ -93,7 +102,7 @@ namespace LudumDare57.Shopping
             if (toPay == 0 || !shopper.UseMoney(toPay)) return;
 
             debt -= toPay;
-            debtPartlyPaid.Invoke();
+            debtChanged.Invoke();
             if (debt == 0) debtPaid.Invoke();
         }
     }
