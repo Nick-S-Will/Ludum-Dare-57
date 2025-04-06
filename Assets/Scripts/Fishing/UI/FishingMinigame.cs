@@ -1,8 +1,6 @@
+using LudumDare57.Extensions;
 using System.Collections;
 using System.Collections.Generic;
-#if UNITY_EDITOR
-using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -14,14 +12,6 @@ namespace LudumDare57.Fishing.UI
         private int RandomSpawnCount => Random.Range(minSpawnCount, maxSpawnCount + 1);
         private float RandomSpawnInterval => Random.Range(minSpawnInterval, maxSpawnInterval);
         private Vector3 RandomSpawnPosition => RectTransform.position + RectTransform.TransformVector(Random.Range(minSpawnRange, maxSpawnRange) * Random.insideUnitCircle.normalized); // 
-        private Graphic[] Graphics
-        {
-            get
-            {
-                if (!Application.isPlaying || graphics == null || graphics.Length == 0) graphics = GetComponentsInChildren<Graphic>();
-                return graphics;
-            }
-        }
         private RectTransform RectTransform
         {
             get
@@ -39,7 +29,6 @@ namespace LudumDare57.Fishing.UI
         [SerializeField][Min(1f)] private int maxSpawnCount = 4;
         [SerializeField][Min(0f)] private float hookDropSpeed = 300f, reelSpeed = 600f, minSpawnInterval = 3f, maxSpawnInterval = 7f, minSpawnRange = 100f, maxSpawnRange = 300f;
 
-        private Graphic[] graphics;
         private RectTransform rectTransform;
         private Coroutine moveHookRoutine, spawnFishRoutine;
         private Vector3 hookStartLocalPosition;
@@ -77,41 +66,22 @@ namespace LudumDare57.Fishing.UI
 
         private void EndMinigame()
         {
-            MoveHookToStart(float.MaxValue);
+            MoveHookToStart();
             Hide();
         }
 
-        #region Visibility
         [ContextMenu(nameof(Show))]
-        private void Show()
-        {
-#if UNITY_EDITOR
-            if (!Application.isPlaying) Undo.RecordObjects(Graphics, $"{nameof(Show)} graphics");
-#endif
-            SetVisible(true);
-        }
+        public void Show() => this.ShowGraphics();
 
         [ContextMenu(nameof(Hide))]
-        private void Hide()
-        {
-#if UNITY_EDITOR
-            if (!Application.isPlaying) Undo.RecordObjects(Graphics, $"{nameof(Hide)} graphics");
-#endif
-            SetVisible(false);
-        }
-
-        private void SetVisible(bool visible)
-        {
-            foreach (Graphic graphic in Graphics) graphic.enabled = visible;
-        }
-        #endregion
+        public void Hide() => this.HideGraphics();
 
         #region Hook Movement
-        private void MoveHookToStart(float moveSpeed) => MoveHook(RectTransform.position + hookStartLocalPosition, moveSpeed);
+        private void MoveHookToStart(float moveSpeed = float.MaxValue) => MoveHook(RectTransform.position + hookStartLocalPosition, moveSpeed);
 
-        private void MoveHookToCenter(float moveSpeed) => MoveHook(RectTransform.position, moveSpeed);
+        private void MoveHookToCenter(float moveSpeed = float.MaxValue) => MoveHook(RectTransform.position, moveSpeed);
 
-        private void MoveHook(Vector3 targetPosition, float moveSpeed)
+        private void MoveHook(Vector3 targetPosition, float moveSpeed = float.MaxValue)
         {
             Assert.IsTrue(moveSpeed >= 0f);
 

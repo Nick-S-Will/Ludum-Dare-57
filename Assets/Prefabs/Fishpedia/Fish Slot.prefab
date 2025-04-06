@@ -128,6 +128,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fishImage: {fileID: 1268548830709076898}
+  selected:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!222 &4882227977584121842
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -179,7 +182,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 7133023415108517195}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4531778950988535643}
+        m_TargetAssemblyTypeName: LudumDare57.Fishpedia.UI.FishSlotUI, Assembly-CSharp
+        m_MethodName: Select
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7133023415108517195
 MonoBehaviour:
   m_ObjectHideFlags: 0

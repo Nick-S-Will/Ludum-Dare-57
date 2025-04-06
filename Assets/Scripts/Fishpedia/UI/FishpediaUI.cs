@@ -1,35 +1,23 @@
-#if UNITY_EDITOR
+using LudumDare57.Extensions;
 using LudumDare57.Fishing;
-using UnityEditor;
-#endif
 using UnityEngine;
 using UnityEngine.Assertions;
-using UnityEngine.UI;
 
 namespace LudumDare57.Fishpedia.UI
 {
     public class FishpediaUI : MonoBehaviour
     {
-        private Graphic[] Graphics
-        {
-            get
-            {
-                if (!Application.isPlaying || graphics == null || graphics.Length == 0) graphics = GetComponentsInChildren<Graphic>();
-                return graphics;
-            }
-        }
-
         [SerializeField] private FishpediaController fishpediaController;
         [SerializeField] private FishSlotUI fishSlotPrefab;
         [SerializeField] private RectTransform fishSlotParent;
-
-        private Graphic[] graphics;
+        [SerializeField] private FishInfoUI fishInfo;
 
         private void Awake()
         {
             Assert.IsNotNull(fishpediaController);
             Assert.IsNotNull(fishSlotPrefab);
             Assert.IsNotNull(fishSlotParent);
+            Assert.IsNotNull(fishInfo);
 
             fishpediaController.Opened.AddListener(Show);
             fishpediaController.Closed.AddListener(Hide);
@@ -41,38 +29,29 @@ namespace LudumDare57.Fishpedia.UI
             Hide();
         }
 
+        [ContextMenu(nameof(Show))]
+        public void Show()
+        {
+            this.ShowGraphics();
+            fishInfo.Hide();
+        }
+
+        [ContextMenu(nameof(Hide))]
+        public void Hide() => this.HideGraphics();
+
         private void CreateSlots()
         {
             foreach (Fish fish in fishpediaController.ExistingFish)
             {
                 FishSlotUI fishSlot = Instantiate(fishSlotPrefab, fishSlotParent);
-                fishSlot.SetFish(fish);
+                fishSlot.Fish = fish;
+                fishSlot.Selected.AddListener(ShowInfo);
             }
         }
 
-        #region Visibility
-        [ContextMenu(nameof(Show))]
-        private void Show()
+        private void ShowInfo(Fish fish)
         {
-#if UNITY_EDITOR
-            if (!Application.isPlaying) Undo.RecordObjects(Graphics, $"{nameof(Show)} graphics");
-#endif
-            SetVisible(true);
+            fishInfo.Display(fish);
         }
-
-        [ContextMenu(nameof(Hide))]
-        private void Hide()
-        {
-#if UNITY_EDITOR
-            if (!Application.isPlaying) Undo.RecordObjects(Graphics, $"{nameof(Hide)} graphics");
-#endif
-            SetVisible(false);
-        }
-
-        private void SetVisible(bool visible)
-        {
-            foreach (Graphic graphic in Graphics) graphic.enabled = visible;
-        }
-        #endregion
     }
 }
