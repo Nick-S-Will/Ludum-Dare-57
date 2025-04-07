@@ -1763,11 +1763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e3ecb96ba53b6488a3cbe2fa1f2fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: ecdb52b077d4af14db9ec93dd9e8b03d, type: 3}
-  - {fileID: 21300000, guid: ba60c1fa60af5fc40a88d4b314a38679, type: 3}
-  frameInterval: 1e+10
-  panInterval: 0.1
+  slideSpeed: {x: 0.1, y: 0.09}
 --- !u!1 &496639225
 GameObject:
   m_ObjectHideFlags: 0
@@ -4153,11 +4149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e3ecb96ba53b6488a3cbe2fa1f2fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: ecdb52b077d4af14db9ec93dd9e8b03d, type: 3}
-  - {fileID: 21300000, guid: ba60c1fa60af5fc40a88d4b314a38679, type: 3}
-  frameInterval: 1e+10
-  panInterval: 0.1
+  slideSpeed: {x: 0.1, y: 0.09}
 --- !u!1 &1328395825 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: f83b397800a753345862bb1c19d85c70, type: 3}
@@ -4955,11 +4947,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1e3ecb96ba53b6488a3cbe2fa1f2fd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sprites:
-  - {fileID: 21300000, guid: ecdb52b077d4af14db9ec93dd9e8b03d, type: 3}
-  - {fileID: 21300000, guid: ba60c1fa60af5fc40a88d4b314a38679, type: 3}
-  frameInterval: 1e+10
-  panInterval: 0.1
+  slideSpeed: {x: 0.1, y: 0.09}
 --- !u!1 &1539627536
 GameObject:
   m_ObjectHideFlags: 0
