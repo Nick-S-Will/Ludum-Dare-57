@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
   m_Name: Marlin
   m_EditorClassIdentifier: 
-  description: Yohohoho.
+  description: These are the best knights in all the seas, their nose is literally
+    their sword
   location: Mid Sea
   price: 60
   catchTime: 1

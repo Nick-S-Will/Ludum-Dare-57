@@ -16,6 +16,6 @@ MonoBehaviour:
     crabs
   location: Deep Sea
   price: 80
-  catchTime: 0.5
+  catchTime: 0.7
   sprite: {fileID: 21300000, guid: 8d6cb731cfcd3ad4691b047380ed2eb4, type: 3}
   silhouetteSprite: {fileID: 21300000, guid: 7e97f82d7bc44eb49b7a1ab1a605bce0, type: 3}

@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
   m_Name: Manta
   m_EditorClassIdentifier: 
-  description: Yohohoho.
+  description: These flying sea pancakes tend to love jumping out of the water. This
+    usually creates a rainbow in the sky with the water they lift up
+  location: Shallows
   price: 20
   catchTime: 1.5
   sprite: {fileID: 21300000, guid: e7437819463854e438ebb47fbd6f776a, type: 3}

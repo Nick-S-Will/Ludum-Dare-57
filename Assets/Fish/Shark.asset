@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
   m_Name: Shark
   m_EditorClassIdentifier: 
-  description: Yohohoho.
+  description: Leapord sharks might be scary on the outside but they love to dance
+    if you just play some music
   location: 'Mid Sea
 
 '

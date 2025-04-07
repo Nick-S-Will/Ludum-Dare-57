@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
   m_Name: Flower Horn
   m_EditorClassIdentifier: 
-  description: Yohohoho.
+  description: Even thought they have a forehead that rivals belugas, they are not
+    nearly as bright as their brain size implies
+  location: Shallows
   price: 30
   catchTime: 1.5
   sprite: {fileID: 21300000, guid: b9aa5358036a8214d90a32db060f190d, type: 3}

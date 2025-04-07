@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
   m_Name: Lantern
   m_EditorClassIdentifier: 
-  description: Yohohoho.
+  description: Don't be fooled by their tiny little lights. These guys absolutely
+    pack a punch... if you're like 2 inches in size
   location: Deep Sea
   price: 90
-  catchTime: 0.5
+  catchTime: 0.7
   sprite: {fileID: 21300000, guid: c09d110de3252de4eb78b4130a1d749b, type: 3}
   silhouetteSprite: {fileID: 21300000, guid: c72fc34b5ce5ef249a7a499ff45935c0, type: 3}

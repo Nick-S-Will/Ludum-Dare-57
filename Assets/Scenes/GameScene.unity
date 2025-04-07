@@ -440,9 +440,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a73ed220264cb34e925045c39f1e63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingDebt: 1000
-  gasPrice: 10
-  tankUpgradePrice: 20
+  startingDebt: 30000
+  gasPrice: 40
+  tankUpgradePrice: 80
   debtPaymentAmount: 100
   opened:
     m_PersistentCalls:
