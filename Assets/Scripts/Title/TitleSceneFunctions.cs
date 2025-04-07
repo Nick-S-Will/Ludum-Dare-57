@@ -8,7 +8,7 @@ namespace LudumDare57.Title
     {
         [SerializeField] private GameObject creditsObject;
         [SerializeField] private string gameSceneName = "GameScene";
-        [SerializeField] private string quitRedirectURL = "https://youtu.be/14FOPsSCIPs?si=qXa2XigqFUfiPRJ9";
+        [SerializeField] private string quitRedirectURL = "https://youtu.be/ECw3UZsKMdU?si=X7A5veSDbnUEu_c1";
 
         private void Awake()
         {

@@ -1403,7 +1403,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   creditsObject: {fileID: 1255551248}
   gameSceneName: GameScene
-  quitRedirectURL: https://youtu.be/14FOPsSCIPs?si=qXa2XigqFUfiPRJ9
+  quitRedirectURL: https://youtu.be/ECw3UZsKMdU?si=X7A5veSDbnUEu_c1
 --- !u!1 &1119725136
 GameObject:
   m_ObjectHideFlags: 0
