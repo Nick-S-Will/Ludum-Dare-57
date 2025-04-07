@@ -8,7 +8,6 @@ namespace LudumDare57.Title
     {
         [SerializeField] private GameObject creditsObject;
         [SerializeField] private string gameSceneName = "GameScene";
-        [SerializeField] private string quitRedirectURL = "https://youtu.be/ECw3UZsKMdU?si=X7A5veSDbnUEu_c1";
 
         private void Awake()
         {
@@ -27,8 +26,7 @@ namespace LudumDare57.Title
 
         public void QuitGame()
         {
-            if (Application.platform == RuntimePlatform.WebGLPlayer) Application.OpenURL(quitRedirectURL);
-            else Application.Quit();
+            Application.Quit();
         }
     }
 }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 4b58b917bde31d5449ae24ee793bea96
+guid: 70084da3c3040084bb8d6399fe0215f0
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -123,22 +123,22 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Finish Screen
+      name: Insert button
       rect:
         serializedVersion: 2
-        x: 466
-        y: 475
-        width: 705
-        height: 392
+        x: 491
+        y: 100
+        width: 396
+        height: 117
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a1d313880aefc834199060bc808be29c
-      internalID: 1685136023
+      spriteID: 6df8eaa50619ec3438d56100e2977c65
+      internalID: 1363588175
       vertices: []
       indices: 
       edges: []
@@ -146,7 +146,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: b83d35f45bdc2ab4c9c046c0bd2ec802
+    spriteID: 27888a6ab9981934190fcc5527a74524
     internalID: 0
     vertices: []
     indices: 
@@ -154,7 +154,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Finish Screen: 1685136023
+      Insert button: 1363588175
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
