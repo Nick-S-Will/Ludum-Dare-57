@@ -114,10 +114,32 @@
             ]
         },
         {
-            "name": "Fishing",
+            "name": "Menu",
             "id": "a6579636-a8c8-473d-a077-58b1a266a96d",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "Close",
+                    "type": "Button",
+                    "id": "bbbce08d-eae2-464d-b8a3-02db1eb61bd2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1aca9dcc-2078-4705-a8a9-175dd9f58253",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse & Keyboard",
+                    "action": "Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

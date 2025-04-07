@@ -50,7 +50,6 @@ namespace LudumDare57.Fishing.UI
             Assert.IsNotNull(caughtFishParent);
 
             fishingController.FishingStarted.AddListener(StartMinigame);
-            fishingController.FishingEnded.AddListener(EndMinigame);
             hookStartLocalPosition = hook.rectTransform.localPosition;
         }
 
@@ -69,10 +68,17 @@ namespace LudumDare57.Fishing.UI
             SpawnFish(fishOptions);
         }
 
-        private void EndMinigame(IList<Fish> caughtFish)
+        public void EndMinigame()
         {
-            MoveHookToStart();
+            if (spawnFishRoutine == null) return;
+
+            StopCoroutine(spawnFishRoutine);
+
             Hide();
+            MoveHookToStart();
+
+            fishingController.CompleteFishing(caughtFish);
+            ClearCatches();
         }
 
         [ContextMenu(nameof(Show))]
@@ -130,9 +136,8 @@ namespace LudumDare57.Fishing.UI
                 yield return StartCoroutine(SpawnFishQuickTimeRoutine(fishAsset));
             }
 
-            fishingController.CompleteFishing(caughtFish);
+            EndMinigame();
 
-            ClearCatches();
             spawnFishRoutine = null;
         }
 
