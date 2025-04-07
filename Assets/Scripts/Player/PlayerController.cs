@@ -2,6 +2,7 @@ using LudumDare57.Fishing;
 using LudumDare57.Fishpedia;
 using LudumDare57.Movement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace LudumDare57.Player
@@ -11,9 +12,12 @@ namespace LudumDare57.Player
     [RequireComponent(typeof(FishingController))]
     public class PlayerController : MonoBehaviour
     {
+        public UnityEvent MenuClosed => menuClosed;
         public BoatController BoatController => boatController;
         public FishpediaController FishpediaController => fishpediaController;
         public FishingController FishingController => fishingController;
+
+        [SerializeField] private UnityEvent menuClosed;
 
         private BoatController boatController;
         private FishpediaController fishpediaController;
@@ -52,6 +56,13 @@ namespace LudumDare57.Player
 
             boatController.Stop();
             fishingController.Fish();
+        }
+
+        public void CloseMenu(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+
+            menuClosed.Invoke();
         }
     }
 }

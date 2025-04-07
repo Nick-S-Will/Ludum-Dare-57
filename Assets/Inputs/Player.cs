@@ -136,10 +136,32 @@ public partial class @Player: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""Fishing"",
+            ""name"": ""Menu"",
             ""id"": ""a6579636-a8c8-473d-a077-58b1a266a96d"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""Close"",
+                    ""type"": ""Button"",
+                    ""id"": ""bbbce08d-eae2-464d-b8a3-02db1eb61bd2"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""1aca9dcc-2078-4705-a8a9-175dd9f58253"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Mouse & Keyboard"",
+                    ""action"": ""Close"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -166,8 +188,9 @@ public partial class @Player: IInputActionCollection2, IDisposable
         m_Boat_Move = m_Boat.FindAction("Move", throwIfNotFound: true);
         m_Boat_ToggleFishpedia = m_Boat.FindAction("Toggle Fishpedia", throwIfNotFound: true);
         m_Boat_Fish = m_Boat.FindAction("Fish", throwIfNotFound: true);
-        // Fishing
-        m_Fishing = asset.FindActionMap("Fishing", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_Close = m_Menu.FindAction("Close", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -288,43 +311,51 @@ public partial class @Player: IInputActionCollection2, IDisposable
     }
     public BoatActions @Boat => new BoatActions(this);
 
-    // Fishing
-    private readonly InputActionMap m_Fishing;
-    private List<IFishingActions> m_FishingActionsCallbackInterfaces = new List<IFishingActions>();
-    public struct FishingActions
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_Menu_Close;
+    public struct MenuActions
     {
         private @Player m_Wrapper;
-        public FishingActions(@Player wrapper) { m_Wrapper = wrapper; }
-        public InputActionMap Get() { return m_Wrapper.m_Fishing; }
+        public MenuActions(@Player wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Close => m_Wrapper.m_Menu_Close;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(FishingActions set) { return set.Get(); }
-        public void AddCallbacks(IFishingActions instance)
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
         {
-            if (instance == null || m_Wrapper.m_FishingActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_FishingActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+            @Close.started += instance.OnClose;
+            @Close.performed += instance.OnClose;
+            @Close.canceled += instance.OnClose;
         }
 
-        private void UnregisterCallbacks(IFishingActions instance)
+        private void UnregisterCallbacks(IMenuActions instance)
         {
+            @Close.started -= instance.OnClose;
+            @Close.performed -= instance.OnClose;
+            @Close.canceled -= instance.OnClose;
         }
 
-        public void RemoveCallbacks(IFishingActions instance)
+        public void RemoveCallbacks(IMenuActions instance)
         {
-            if (m_Wrapper.m_FishingActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IFishingActions instance)
+        public void SetCallbacks(IMenuActions instance)
         {
-            foreach (var item in m_Wrapper.m_FishingActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_FishingActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public FishingActions @Fishing => new FishingActions(this);
+    public MenuActions @Menu => new MenuActions(this);
     private int m_MouseKeyboardSchemeIndex = -1;
     public InputControlScheme MouseKeyboardScheme
     {
@@ -340,7 +371,8 @@ public partial class @Player: IInputActionCollection2, IDisposable
         void OnToggleFishpedia(InputAction.CallbackContext context);
         void OnFish(InputAction.CallbackContext context);
     }
-    public interface IFishingActions
+    public interface IMenuActions
     {
+        void OnClose(InputAction.CallbackContext context);
     }
 }
