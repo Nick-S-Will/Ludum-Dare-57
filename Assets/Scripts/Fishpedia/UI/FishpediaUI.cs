@@ -1,5 +1,6 @@
 using LudumDare57.Extensions;
 using LudumDare57.Fishing;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
 
@@ -11,6 +12,8 @@ namespace LudumDare57.Fishpedia.UI
         [SerializeField] private FishSlotUI fishSlotPrefab;
         [SerializeField] private RectTransform fishSlotParent;
         [SerializeField] private FishInfoUI fishInfo;
+
+        private readonly List<FishSlotUI> fishSlotUIs = new();
 
         private void Awake()
         {
@@ -33,6 +36,7 @@ namespace LudumDare57.Fishpedia.UI
         public void Show()
         {
             this.ShowGraphics();
+            foreach (var slot in fishSlotUIs) slot.UpdateSprite();
             fishInfo.Hide();
         }
 
@@ -46,6 +50,8 @@ namespace LudumDare57.Fishpedia.UI
                 FishSlotUI fishSlot = Instantiate(fishSlotPrefab, fishSlotParent);
                 fishSlot.Fish = fish;
                 fishSlot.Selected.AddListener(ShowInfo);
+
+                fishSlotUIs.Add(fishSlot);
             }
         }
 

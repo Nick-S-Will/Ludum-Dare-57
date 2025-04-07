@@ -1,4 +1,5 @@
 using LudumDare57.Fishing;
+using LudumDare57.Fishing.Stats;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
@@ -16,7 +17,7 @@ namespace LudumDare57.Fishpedia.UI
             set
             {
                 fish = value;
-                fishImage.sprite = fish ? fish.Sprite : null;
+                UpdateSprite();
             }
         }
 
@@ -37,6 +38,11 @@ namespace LudumDare57.Fishpedia.UI
         public void Select()
         { 
             selected.Invoke(fish);
+        }
+
+        public void UpdateSprite()
+        {
+            fishImage.sprite = fish ? (CatchStatTracker.Instance.HasBeenCaught(fish) ? fish.Sprite : fish.SilhouetteSprite) : null;
         }
     }
 }

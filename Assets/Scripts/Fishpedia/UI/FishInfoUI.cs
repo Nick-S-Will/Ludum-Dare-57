@@ -1,5 +1,6 @@
 using LudumDare57.Extensions;
 using LudumDare57.Fishing;
+using LudumDare57.Fishing.Stats;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -32,10 +33,12 @@ namespace LudumDare57.Fishpedia.UI
 
         public void Display(Fish fish)
         {
+            Assert.IsNotNull(fish);
+
             nameText.text = fish.name;
             descriptionText.text = fish.Description;
             priceText.text = string.Format(priceTextFormat, fish.Price);
-            spriteImage.sprite = fish.Sprite;
+            spriteImage.sprite = CatchStatTracker.Instance.HasBeenCaught(fish) ? fish.Sprite : fish.SilhouetteSprite;
 
             Show();
         }

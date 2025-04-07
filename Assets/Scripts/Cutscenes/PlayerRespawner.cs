@@ -1,8 +1,9 @@
+using LudumDare57.Player;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.Events;
 
-namespace LudumDare57.Player.Transitions
+namespace LudumDare57.Cutscenes
 {
     public class PlayerRespawner : MonoBehaviour
     {
@@ -30,14 +31,17 @@ namespace LudumDare57.Player.Transitions
 
         private void Respawn()
         {
+            MovePlayerToStart();
+
+            playerRespawned.Invoke();
+        }
+
+        public void MovePlayerToStart()
+        {
             playerController.BoatController.Rigidbody.velocity = Vector3.zero;
             playerController.BoatController.Rigidbody.angularVelocity = Vector3.zero;
             playerController.BoatController.Rigidbody.position = playerStartPosition;
             playerController.BoatController.Rigidbody.rotation = playerStartRotation;
-
-            playerController.BoatController.GasHandler.Refuel();
-
-            playerRespawned.Invoke();
         }
     }
 }
