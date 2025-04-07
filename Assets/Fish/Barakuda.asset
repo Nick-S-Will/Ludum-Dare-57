@@ -12,8 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
   m_Name: Barakuda
   m_EditorClassIdentifier: 
-  description: 'Found Deep Sea  "It''s funny how humans and barracuda share similar
-    favorite meals, crabs" '
+  description: It's funny how humans and barracuda share similar favorite meals,
+    crabs
+  location: Deep Sea
   price: 80
   catchTime: 0.5
   sprite: {fileID: 21300000, guid: 8d6cb731cfcd3ad4691b047380ed2eb4, type: 3}

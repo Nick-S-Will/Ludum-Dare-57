@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Tripod
   m_EditorClassIdentifier: 
   description: Yohohoho.
+  location: Deep Sea
   price: 70
   catchTime: 0.5
   sprite: {fileID: 21300000, guid: 264decd61258195489134b340ada3439, type: 3}

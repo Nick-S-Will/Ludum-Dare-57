@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 279759f6d3c94ea41a1c2a7aeb376379, type: 3}
   m_Name: Clown
   m_EditorClassIdentifier: 
-  description: They are just not that funny Found Mid Sea
+  description: "They are just not that funny\n "
+  location: Mid Sea
   price: 40
   catchTime: 1
   sprite: {fileID: 21300000, guid: b79bc26688d16d2498ce30fadb4b73c9, type: 3}

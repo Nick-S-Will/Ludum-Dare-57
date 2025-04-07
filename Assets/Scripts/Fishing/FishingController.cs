@@ -48,8 +48,6 @@ namespace LudumDare57.Fishing
         {
             this.caughtFish.AddRange(caughtFish);
 
-            foreach (Fish fish in caughtFish) Debug.Log(fish);
-
             IsFishing = false;
 
             fishingEnded.Invoke(caughtFish);

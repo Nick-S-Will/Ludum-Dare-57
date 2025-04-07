@@ -13,6 +13,9 @@ MonoBehaviour:
   m_Name: Shark
   m_EditorClassIdentifier: 
   description: Yohohoho.
+  location: 'Mid Sea
+
+'
   price: 50
   catchTime: 1
   sprite: {fileID: 21300000, guid: e6e7935664b940143ac4d86697f21d28, type: 3}

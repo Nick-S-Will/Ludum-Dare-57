@@ -40,6 +40,8 @@ namespace LudumDare57.Fishing.Stats
             }
         }
 
+        public int GetCatchCount(Fish fish) => fishCatches.TryGetValue(fish, out int count) ? count : 0;
+
         public bool HasBeenCaught(Fish fish) => fishCatches.TryGetValue(fish, out int count) && count > 0;
     }
 }

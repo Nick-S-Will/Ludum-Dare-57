@@ -10,10 +10,11 @@ namespace LudumDare57.Fishpedia.UI
 {
     public class FishInfoUI : MonoBehaviour
     {
-        [SerializeField] private TMP_Text nameText, descriptionText, priceText;
+        [SerializeField] private TMP_Text nameText, descriptionText, locationText, priceText, totalCaughtText;
         [SerializeField] private Image spriteImage;
+        [SerializeField] private string unknownFishMessage = "Catch to learn about.";
 
-        private string priceTextFormat;
+        private string locationTextFormat, priceTextFormat, totalCaughtTextFormat;
 
         private void Awake()
         {
@@ -22,7 +23,9 @@ namespace LudumDare57.Fishpedia.UI
             Assert.IsNotNull(priceText);
             Assert.IsNotNull(spriteImage);
 
+            locationTextFormat = locationText.text;
             priceTextFormat = priceText.text;
+            totalCaughtTextFormat = totalCaughtText.text;
         }
 
         [ContextMenu(nameof(Show))]
@@ -36,8 +39,11 @@ namespace LudumDare57.Fishpedia.UI
             Assert.IsNotNull(fish);
 
             nameText.text = fish.name;
-            descriptionText.text = fish.Description;
+            int caughtCount = CatchStatTracker.Instance.GetCatchCount(fish);
+            descriptionText.text = caughtCount > 0 ? fish.Description : unknownFishMessage;
+            locationText.text = string.Format(locationTextFormat, fish.Location);
             priceText.text = string.Format(priceTextFormat, fish.Price);
+            totalCaughtText.text = string.Format(totalCaughtTextFormat, caughtCount);
             spriteImage.sprite = CatchStatTracker.Instance.HasBeenCaught(fish) ? fish.Sprite : fish.SilhouetteSprite;
 
             Show();
