@@ -1,3 +1,4 @@
+using LudumDare57.DataSaving;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -12,6 +13,17 @@ namespace LudumDare57.Shopping
 
         private int money;
 
+        private void Start()
+        {
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            money = SaveManager.Instance.Money ?? 0;
+            moneyChanged.Invoke();
+        }
+
         [ContextMenu(nameof(LineMyPockets))]
         private void LineMyPockets() => AddMoney(int.MaxValue - money);
         
@@ -20,6 +32,8 @@ namespace LudumDare57.Shopping
             if (amount <= 0) return;
 
             money += amount;
+            SaveManager.Instance.Money = money;
+
             moneyChanged.Invoke();
         }
 
@@ -33,6 +47,8 @@ namespace LudumDare57.Shopping
             if (amount == 0 || !HasMoney(amount)) return false;
 
             money -= amount;
+            SaveManager.Instance.Money = money;
+
             moneyChanged.Invoke();
 
             return true;

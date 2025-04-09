@@ -22,10 +22,6 @@ namespace LudumDare57.Shopping.UI
 
             moneyHandler.MoneyChanged.AddListener(UpdateUI);
             textFormat = moneyText.text;
-        }
-
-        private void Start()
-        {
             UpdateText();
         }
 

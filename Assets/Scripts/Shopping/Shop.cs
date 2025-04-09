@@ -1,3 +1,4 @@
+using LudumDare57.DataSaving;
 using LudumDare57.Resources;
 using UnityEngine;
 using UnityEngine.Assertions;
@@ -33,9 +34,15 @@ namespace LudumDare57.Shopping
         private IMoneyHolder shopper;
         private int debt;
 
-        private void Awake()
+        private void Start()
         {
-            debt = startingDebt;
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            debt = SaveManager.Instance.Debt ?? startingDebt;
+            debtChanged.Invoke();
         }
 
         public void Open<T>(T shopper) where T : IMoneyHolder, IGasHolder
@@ -72,7 +79,7 @@ namespace LudumDare57.Shopping
 
         public void BuyTankUpgrade()
         {
-            if (!IsOpen || !shopper.HasMoney(tankUpgradePrice) || !GasHolder.IncreaseTankSize())
+            if (!IsOpen || !shopper.HasMoney(tankUpgradePrice) || !GasHolder.UpgradeTank())
             {
                 purchaseFailed.Invoke();
                 return;
@@ -87,6 +94,8 @@ namespace LudumDare57.Shopping
             Assert.IsTrue(amount > 0);
 
             debt += amount;
+            SaveManager.Instance.Debt = debt;
+
             debtChanged.Invoke();
         }
 
@@ -102,6 +111,8 @@ namespace LudumDare57.Shopping
             if (toPay == 0 || !shopper.UseMoney(toPay)) return;
 
             debt -= toPay;
+            SaveManager.Instance.Debt = debt;
+
             debtChanged.Invoke();
             if (debt == 0) debtPaid.Invoke();
         }

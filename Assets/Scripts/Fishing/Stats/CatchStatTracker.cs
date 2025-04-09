@@ -1,3 +1,4 @@
+using LudumDare57.DataSaving;
 using LudumDare57.Fishpedia;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,10 +10,12 @@ namespace LudumDare57.Fishing.Stats
     {
         public static CatchStatTracker Instance { get; private set; }
 
+        public Fish[] ExistingFish => fishpediaController.ExistingFish;
+
         [SerializeField] private FishingController fishingController;
         [SerializeField] private FishpediaController fishpediaController;
 
-        private Dictionary<Fish, int> fishCatches = new();
+        private readonly Dictionary<Fish, int> fishCatchCounts = new();
 
         private void Awake()
         {
@@ -27,21 +30,32 @@ namespace LudumDare57.Fishing.Stats
 
         private void Start()
         {
-            foreach (Fish fish in fishpediaController.ExistingFish) fishCatches[fish] = 0;
+            LoadData();
+        }
+
+        private void LoadData()
+        {
+            Dictionary<Fish, int> savedFishCatchCounts = SaveManager.Instance.FishCatchCounts;
+            foreach (Fish fish in ExistingFish)
+            {
+                fishCatchCounts[fish] = savedFishCatchCounts != null && savedFishCatchCounts.TryGetValue(fish, out int count) ? count : 0;
+            }
+            SaveManager.Instance.FishCatchCounts = fishCatchCounts;
         }
 
         private void AddFish(IList<Fish> caughtFish)
         {
             foreach (Fish fish in caughtFish)
             {
-                if (!fishCatches.ContainsKey(fish)) continue;
+                if (!fishCatchCounts.ContainsKey(fish)) continue;
 
-                fishCatches[fish]++;
+                fishCatchCounts[fish]++;
+                SaveManager.Instance.FishCatchCounts = fishCatchCounts;
             }
         }
 
-        public int GetCatchCount(Fish fish) => fishCatches.TryGetValue(fish, out int count) ? count : 0;
+        public int GetCatchCount(Fish fish) => fishCatchCounts.TryGetValue(fish, out int count) ? count : 0;
 
-        public bool HasBeenCaught(Fish fish) => fishCatches.TryGetValue(fish, out int count) && count > 0;
+        public bool HasBeenCaught(Fish fish) => GetCatchCount(fish) > 0;
     }
 }

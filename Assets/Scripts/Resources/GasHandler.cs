@@ -1,5 +1,5 @@
+using LudumDare57.DataSaving;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.Events;
 
 namespace LudumDare57.Resources
@@ -11,7 +11,7 @@ namespace LudumDare57.Resources
         public UnityEvent TankSizeChanged => tankSizeChanged;
         public UnityEvent GasChanged => gasChanged;
         public UnityEvent GasExhausted => gasExhausted;
-        public float TankSize => tankSize;
+        public float TankSize => tankSegmentCount * startTankSize;
         public float Gas => gas;
 
         [Header("Attributes")]
@@ -21,31 +21,46 @@ namespace LudumDare57.Resources
         [SerializeField] private UnityEvent tankSizeChanged;
         [SerializeField] private UnityEvent gasChanged, gasExhausted;
 
-        private float tankSize, gas;
+        private int tankSegmentCount;
+        private float gas;
 
         private void Start()
         {
-            _ = IncreaseTankSize();
-            Refuel();
+            LoadData();
         }
 
-        [ContextMenu(nameof(IncreaseTankSize))]
-        public bool IncreaseTankSize() => IncreaseTankSize(startTankSize);
-
-        public bool IncreaseTankSize(float amount)
+        private void LoadData()
         {
-            if (amount <= 0f || tankSize + amount > maxTankSize) return false;
+            tankSegmentCount = SaveManager.Instance.TankSegmentCount ?? 1;
+            tankSizeChanged.Invoke();
 
-            tankSize += amount;
+            gas = SaveManager.Instance.Gas ?? TankSize;
+            gasChanged.Invoke();
+        }
+
+        [ContextMenu(nameof(UpgradeTank))]
+        public bool UpgradeTank() => UpgradeTank(1);
+
+        public bool UpgradeTank(int count)
+        {
+            if (count <= 0 || TankSize + startTankSize > maxTankSize) return false;
+
+            tankSegmentCount += count;
+            SaveManager.Instance.TankSegmentCount = tankSegmentCount;
+
             tankSizeChanged.Invoke();
 
             return true;
         }
 
         [ContextMenu(nameof(Refuel))]
-        public void Refuel()
+        public void Refuel() => Refuel(TankSize);
+
+        private void Refuel(float amount)
         {
-            gas = tankSize;
+            gas = Mathf.Min(gas + amount, TankSize);
+            SaveManager.Instance.Gas = gas;
+
             gasChanged.Invoke();
         }
 
@@ -62,6 +77,8 @@ namespace LudumDare57.Resources
             if (!HasGas(toUse)) return false;
 
             gas -= toUse;
+            SaveManager.Instance.Gas = gas;
+
             gasChanged.Invoke();
             if (gas == 0f) gasExhausted.Invoke();
 

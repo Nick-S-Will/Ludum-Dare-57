@@ -6,7 +6,7 @@ namespace LudumDare57.Resources
         float TankSize { get; }
         float Gas { get; }
 
-        bool IncreaseTankSize();
+        bool UpgradeTank();
 
         void Refuel();
 

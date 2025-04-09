@@ -39,7 +39,7 @@ namespace LudumDare57.Shopping
             fishingController.CaughtFish.Clear();
         }
 
-        public bool IncreaseTankSize() => gasHandler.IncreaseTankSize();
+        public bool UpgradeTank() => gasHandler.UpgradeTank();
         public void Refuel() => gasHandler.Refuel();
         public bool HasGas(float amount) => gasHandler.HasGas(amount);
         public bool UseGas(float amount) => gasHandler.UseGas(amount);
